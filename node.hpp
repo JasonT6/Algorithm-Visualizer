@@ -2,7 +2,7 @@
 
 class node{
 
-    private:
+    public:
         node *north;
         node *east;
         node *south;
@@ -14,6 +14,9 @@ class node{
 
         node *reachingNode;
 
+        x_y_position *position;
 
+        node(node *newNorth, node *newEast, node *newSouth, node *newWest, x_y_position *newPosition);
+        
 
 };
