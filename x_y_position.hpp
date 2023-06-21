@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <map>
 
@@ -7,7 +8,7 @@ class x_y_position{
     private:
         int x;
         int y;
-        
+
     public:
 
         x_y_position(int new_x, int new_y);

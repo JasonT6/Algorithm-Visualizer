@@ -1,4 +1,6 @@
+#pragma once
 #include "x_y_position.hpp"
+#include <iostream>
 
 class node{
 
@@ -50,5 +52,8 @@ class node{
 
         x_y_position *getNodePosition();
 
+        
+
 
 };
+
