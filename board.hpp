@@ -26,14 +26,18 @@ class board{
 
         node * getHead();
 
-        // int getHeightInPx();
+        int getHeightInPx();
 
-        // int getWidthInPx();
+        int getWidthInPx();
 
-        // int getHeightInNodes();
+        int getHeightInNodes();
 
-        // int getWidthInNodes();
+        int getWidthInNodes();
 
-        // int getNodeSize();
+        int getNodeSize();
 
 };
+
+node *makeNodeColumn(int columnLen, int xVal, int newNodeSize);
+
+void mergeColumns(vector <node*> listColumnHeads);

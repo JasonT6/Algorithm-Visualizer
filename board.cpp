@@ -1,10 +1,9 @@
-#pragma once
 #include "board.hpp"
+#include <vector>
 using namespace std;
 
-board::board(int newHeightInNodes, int newWidthInNodes, int newNodeSize){
 
-    head = new node(nullptr, nullptr, nullptr, nullptr, new x_y_position(newNodeSize/2, newNodeSize/2));
+board::board(int newHeightInNodes, int newWidthInNodes, int newNodeSize){
     
     heightInNodes = newHeightInNodes;
     widthInNodes = newWidthInNodes;
@@ -15,31 +14,84 @@ board::board(int newHeightInNodes, int newWidthInNodes, int newNodeSize){
 
     widthInPx = widthInNodes * nodeSize;
 
-    node *curColumn = head;
-    node *prevColumn = head;
+    int initialX = newNodeSize/2;
 
-    node *curRow = head;
-    node *prevRow = head;
+    vector <node*> columnHeadList;
 
-    int initialX = head->getNodePosition()->getX();
-    int initialY = head->getNodePosition()->getY();
-
-    // for(int col = 0; col < heightInNodes; col++){
-        
-    // }
-    // cout << head << endl;
-    for(int row = 0; row < widthInNodes - 1; row++){
-
-        x_y_position newPos = x_y_position(initialX, initialY + nodeSize*row);
-        node *newNode =  new node(prevRow, nullptr, nullptr, nullptr, &newPos);
-        
-        prevRow->setSouth(newNode);
-
-        prevRow = prevRow->getSouth();
+    for (int i = 0; i < newWidthInNodes; i++){
+        node *newColumnHead = makeNodeColumn(newHeightInNodes, initialX, newNodeSize);
+        columnHeadList.push_back(newColumnHead);
+        initialX += newNodeSize;
     }
 
+    mergeColumns(columnHeadList);
+
+    head = columnHeadList[0];
+   
 }
 
 node *board::getHead(){
     return head;
+}
+
+int board::getHeightInPx(){
+    return heightInPx;
+}
+
+int board::getWidthInPx(){
+    return widthInPx;
+}
+
+int board::getHeightInNodes(){
+    return heightInNodes;
+}
+
+int board::getWidthInNodes(){
+    return widthInNodes;
+}
+
+int board::getNodeSize(){
+    return nodeSize;
+}
+
+
+node *makeNodeColumn(int columnLen, int xVal, int newNodeSize){
+
+    x_y_position *newPos = new x_y_position(xVal, newNodeSize/2);
+    node *head = new node(nullptr, nullptr, nullptr, nullptr, newPos);
+
+    node *cur = head;
+    for (int i = 0; i < columnLen - 1; i++){
+        x_y_position *Pos = new x_y_position(xVal, newNodeSize/2 + i * newNodeSize);
+        node * newNode = new node(cur,nullptr, nullptr, nullptr, Pos);
+        cur->setSouth(newNode);
+        cur = newNode;
+    }
+
+    return head;
+}
+
+void mergeColumns(vector <node*> listColumnHeads){
+
+    if (listColumnHeads.size() < 2){
+        return;
+    }
+
+    int prevIndex = 0;
+    while(prevIndex < (int)listColumnHeads.size() - 1){
+        node *prevMoving = listColumnHeads[prevIndex];
+        node *curMoving = listColumnHeads[prevIndex + 1];
+
+        while(curMoving != nullptr){
+
+            prevMoving->setEast(curMoving);
+            curMoving->setWest(prevMoving);
+
+            prevMoving = prevMoving->getSouth();
+            curMoving = curMoving->getSouth();
+        }
+        prevIndex++;
+
+    }
+
 }

@@ -13,19 +13,50 @@ int main(){
     // cout << head.getNorth()->getNodePosition()->getX() << endl;
 
     board currentBoard = board(5,3, 10);
-    node *current = currentBoard.getHead();
+    // node *current = currentBoard.getHead();
 
     cout << "success" << endl;
-    cout << nullptr << endl;
-    cout << current << endl;
-    cout << current->getSouth() << endl;
-    cout << current->getSouth()->getSouth() << endl;
-    cout << current->getSouth()->getSouth()->getSouth() << endl;
-    cout << current->getSouth()->getSouth()->getSouth()->getSouth() << endl;
+    // cout << current << endl;
+    // cout << current->getSouth()->getNodePosition()->getY() << endl;
+    // cout << current->getSouth()->getSouth()->getNodePosition()->getY() << endl;
+    // cout << current->getSouth()->getSouth()->getSouth()->getNodePosition()->getY() << endl;
+    // cout << current->getSouth()->getSouth()->getSouth()->getSouth()->getNodePosition()->getY() << endl;
 
+    // cout << current << endl;
+    // cout << current->getSouth() << endl;
+    // cout << current->getSouth()->getSouth()<< endl;
+    // cout << current->getSouth()->getSouth()->getSouth() << endl;
+    // cout << current->getSouth()->getSouth()->getSouth()->getSouth()<< endl;
+
+    // current = current->getSouth()->getSouth()->getSouth()->getSouth();
     
+    // cout << "swap" << endl;
 
-    cout << "hello" << endl;;
+    // cout << current->getNorth()->getNodePosition()->getY() << endl;
+    // cout << current->getNorth()->getNorth()->getNodePosition()->getY() << endl;
+    // cout << current->getNorth()->getNorth()->getNorth()->getNodePosition()->getY() << endl;
+    // cout << current->getNorth()->getNorth()->getNorth()->getNorth()->getNodePosition()->getY() << endl;
+
+    // cout << current << endl;
+    // cout << current->getNorth() << endl;
+    // cout << current->getNorth()->getNorth() << endl;
+    // cout << current->getNorth()->getNorth()->getNorth() << endl;
+    // cout << current->getNorth()->getNorth()->getNorth()->getNorth() << endl;
+
+
+    // cout << "go east" << endl;
+
+    // cout << current->getNodePosition()->getX() << endl;
+    // cout << current->getEast()->getNodePosition()->getX() << endl;
+    // cout << current->getEast()->getEast()->getNodePosition()->getX() << endl;
+    // // cout << current->getEast()->getEast()->getEast()->getNodePosition()->getX() << endl;
+
+    // current = current->getEast()->getEast();
+
+    // cout << current->getNodePosition()->getX() << endl;
+    // cout << current->getWest()->getNodePosition()->getX() << endl;
+    // cout << current->getWest()->getWest()->getNodePosition()->getX() << endl;
+
     // int count = 0;
     // while (current != nullptr){
     //     cout << current << endl;
