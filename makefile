@@ -4,7 +4,7 @@ CXX := g++
 CXXFLAGS := -Wall -Wextra -std=c++17
 
 # Source files
-SRCS := main.cpp node.cpp x_y_position.cpp board.cpp
+SRCS := main.cpp node.cpp x_y_position.cpp board.cpp algorithms.cpp
 # Object files
 OBJS := $(SRCS:.cpp=.o)
 # Target executable

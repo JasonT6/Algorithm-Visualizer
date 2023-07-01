@@ -95,3 +95,50 @@ void mergeColumns(vector <node*> listColumnHeads){
     }
 
 }
+
+void board::printBoard(){
+    cout << "___________________________________" << endl;
+    cout << endl;
+
+    node *curRow = head;
+    node *curMov = curRow;
+
+    while(curRow != nullptr){
+        curMov = curRow;
+        while(curMov != nullptr){
+            if(curMov->getTraversable() == false){
+                cout << "X ";
+            }
+            else if(curMov->getInFinalPath()){
+                cout << "P ";
+            }
+            else{
+                cout << "O ";
+            }
+            curMov = curMov->getEast();
+        }
+        cout << endl;
+        curRow = curRow->getSouth();
+    }
+
+    cout << "___________________________________" << endl;
+
+    
+    cout << "___________________________________" << endl;
+    cout << endl;
+
+    node *curRow2 = head;
+    node *curMov2 = curRow2;
+
+    while(curRow2 != nullptr){
+        curMov2 = curRow2;
+        while(curMov2 != nullptr){
+            cout << curMov2 << " "; 
+            curMov2 = curMov2->getEast();
+        }
+        cout << endl;
+        curRow2 = curRow2->getSouth();
+    }
+
+    cout << "___________________________________" << endl;
+}

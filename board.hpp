@@ -36,6 +36,8 @@ class board{
 
         int getNodeSize();
 
+        void printBoard();
+
 };
 
 node *makeNodeColumn(int columnLen, int xVal, int newNodeSize);

@@ -2,6 +2,7 @@
 #include <vector>
 #include "node.hpp"
 #include "board.hpp"
+#include "algorithms.hpp"
 
 using namespace std;
 
@@ -12,10 +13,57 @@ int main(){
     // head.getNorth()->getNodePosition()->getX();
     // cout << head.getNorth()->getNodePosition()->getX() << endl;
 
-    board currentBoard = board(5,3, 10);
+    board currentBoard = board(6,10, 10);
     // node *current = currentBoard.getHead();
+    node *current = currentBoard.getHead();
+    cout << current->getNodePosition()->getX() << endl;
 
     cout << "success" << endl;
+
+    currentBoard.printBoard();
+
+    current->setTraversable(false);
+
+    currentBoard.printBoard();
+
+    node * start = current->getEast();
+
+    while (current->getEast() != nullptr){
+        current = current->getEast();
+    }
+
+    node *end = current->getSouth();
+
+    cout << "start" << start << endl;
+
+    cout << "end: " << end << endl;
+
+    current = currentBoard.getHead();
+    for (int i = 0; i < 5; i++){
+        current = current->getEast();
+    }
+
+    for (int i = 0; i < 4; i++){
+        current->setTraversable(false);
+        current = current->getSouth();
+    }
+
+    bfs(start, end);
+
+    bfsTraceback(start, end);
+
+    cout << "donehere" << endl;
+
+    currentBoard.printBoard();
+
+    cout << "success" << endl;
+
+
+
+
+
+
+
     // cout << current << endl;
     // cout << current->getSouth()->getNodePosition()->getY() << endl;
     // cout << current->getSouth()->getSouth()->getNodePosition()->getY() << endl;

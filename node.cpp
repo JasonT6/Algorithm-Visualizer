@@ -7,13 +7,15 @@ node::node(node *newNorth, node *newEast, node *newSouth, node *newWest, x_y_pos
     south = newSouth;
     west = newWest;
 
-    traversable = false;
+    traversable = true;
 
     visited = false;
 
     reachingNode = nullptr;
 
     position = newPosition;
+
+    inFinalPath = false;
 
 }
 
@@ -79,4 +81,12 @@ void node::setReachingNode(node * newNode){
 
 x_y_position *node::getNodePosition(){
     return position;
+}
+
+void node::setInFinalPath(bool setInFinalPath){
+    inFinalPath = setInFinalPath;
+}
+
+bool node::getInFinalPath(){
+    return inFinalPath;
 }

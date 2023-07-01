@@ -17,6 +17,8 @@ class node{
         node *reachingNode;
 
         x_y_position *position;
+
+        bool inFinalPath;
     
     public:
 
@@ -52,7 +54,9 @@ class node{
 
         x_y_position *getNodePosition();
 
-        
+        void setInFinalPath(bool setInFinalPath);
+
+        bool getInFinalPath();
 
 
 };
