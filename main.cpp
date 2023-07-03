@@ -13,12 +13,12 @@ int main(){
     // head.getNorth()->getNodePosition()->getX();
     // cout << head.getNorth()->getNodePosition()->getX() << endl;
 
-    board currentBoard = board(6,10, 10);
+    board currentBoard = board(10, 20, 10);
     // node *current = currentBoard.getHead();
     node *current = currentBoard.getHead();
     cout << current->getNodePosition()->getX() << endl;
 
-    cout << "success" << endl;
+    cout << "successfully created board" << endl;
 
     currentBoard.printBoard();
 
@@ -34,25 +34,36 @@ int main(){
 
     node *end = current->getSouth();
 
-    cout << "start" << start << endl;
+    cout << "start: " << start << endl;
 
     cout << "end: " << end << endl;
 
     current = currentBoard.getHead();
-    for (int i = 0; i < 5; i++){
-        current = current->getEast();
+    // for (int i = 0; i < 5; i++){
+    //     current = current->getEast();
+    // }
+
+    // for (int i = 0; i < 4; i++){
+    //     current->setTraversable(false);
+    //     current = current->getSouth();
+    // }
+
+    currentBoard.createRandomObstacles();
+
+    currentBoard.printBoard();
+
+    if (dfs_with_stack(start, end)){
+        Traceback(start, end);
+    }
+    else{
+        cout << "dfs failed";
     }
 
-    for (int i = 0; i < 4; i++){
-        current->setTraversable(false);
-        current = current->getSouth();
-    }
 
-    bfs(start, end);
-
-    bfsTraceback(start, end);
-
-    cout << "donehere" << endl;
+    // if (bfs(start, end)){
+    //     Traceback(start, end);
+    // }
+    
 
     currentBoard.printBoard();
 

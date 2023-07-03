@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "node.hpp"
+#include <time.h>
 
 using namespace std;
 
@@ -37,6 +38,8 @@ class board{
         int getNodeSize();
 
         void printBoard();
+
+        void createRandomObstacles();
 
 };
 

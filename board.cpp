@@ -107,13 +107,16 @@ void board::printBoard(){
         curMov = curRow;
         while(curMov != nullptr){
             if(curMov->getTraversable() == false){
-                cout << "X ";
+                cout << "# ";
             }
             else if(curMov->getInFinalPath()){
-                cout << "P ";
+                cout << "o ";
+            }
+            else if (curMov->getVisited()){
+                cout << ". ";
             }
             else{
-                cout << "O ";
+                cout << "  ";
             }
             curMov = curMov->getEast();
         }
@@ -124,21 +127,42 @@ void board::printBoard(){
     cout << "___________________________________" << endl;
 
     
-    cout << "___________________________________" << endl;
-    cout << endl;
+    // cout << "___________________________________" << endl;
+    // cout << endl;
 
-    node *curRow2 = head;
-    node *curMov2 = curRow2;
+    // node *curRow2 = head;
+    // node *curMov2 = curRow2;
 
-    while(curRow2 != nullptr){
-        curMov2 = curRow2;
-        while(curMov2 != nullptr){
-            cout << curMov2 << " "; 
-            curMov2 = curMov2->getEast();
+    // while(curRow2 != nullptr){
+    //     curMov2 = curRow2;
+    //     while(curMov2 != nullptr){
+    //         cout << curMov2 << " "; 
+    //         curMov2 = curMov2->getEast();
+    //     }
+    //     cout << endl;
+    //     curRow2 = curRow2->getSouth();
+    // }
+
+    // cout << "___________________________________" << endl;
+}
+
+void board::createRandomObstacles(){
+    
+    node *curRow = head;
+    node *curMov = curRow;
+
+    srand(time(NULL));
+
+    while(curRow != nullptr){
+        curMov = curRow;
+        while(curMov != nullptr){
+            int randomNumber;
+            randomNumber = rand();
+            if (randomNumber % 4 == 0){
+                curMov->setTraversable(false);
+            }
+            curMov = curMov->getEast();
         }
-        cout << endl;
-        curRow2 = curRow2->getSouth();
+        curRow = curRow->getSouth();
     }
-
-    cout << "___________________________________" << endl;
 }
