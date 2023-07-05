@@ -1,7 +1,7 @@
 #include "node.hpp"
 using namespace std;
 
-node::node(node *newNorth, node *newEast, node *newSouth, node *newWest, x_y_position *newPosition){
+node::node(node *newNorth, node *newEast, node *newSouth, node *newWest, x_y_position *newPosition, int newSize){
     north = newNorth;
     east = newEast;
     south = newSouth;
@@ -16,6 +16,10 @@ node::node(node *newNorth, node *newEast, node *newSouth, node *newWest, x_y_pos
     position = newPosition;
 
     inFinalPath = false;
+
+    nodeSize = newSize;
+
+    distance = numeric_limits<double>::max();
 
 }
 
@@ -89,4 +93,20 @@ void node::setInFinalPath(bool setInFinalPath){
 
 bool node::getInFinalPath(){
     return inFinalPath;
+}
+
+int node::getNodeSize(){
+    return nodeSize;
+}
+
+void node::setNodeSize(int newSize){
+    nodeSize = newSize;
+}
+
+double node::getDistance(){
+    return distance;
+}
+
+void node::setDistance(double newDist){
+    distance = newDist;
 }

@@ -13,7 +13,7 @@ int main(){
     // head.getNorth()->getNodePosition()->getX();
     // cout << head.getNorth()->getNodePosition()->getX() << endl;
 
-    board currentBoard = board(10, 20, 10);
+    board currentBoard = board(100, 100, 10);
     // node *current = currentBoard.getHead();
     node *current = currentBoard.getHead();
     cout << current->getNodePosition()->getX() << endl;
@@ -22,17 +22,19 @@ int main(){
 
     currentBoard.printBoard();
 
-    current->setTraversable(false);
-
     currentBoard.printBoard();
 
-    node * start = current->getEast();
+    node * start = current;
 
     while (current->getEast() != nullptr){
         current = current->getEast();
     }
 
-    node *end = current->getSouth();
+    while (current->getSouth() != nullptr){
+        current = current->getSouth();
+    }
+
+    node *end = current;
 
     cout << "start: " << start << endl;
 
@@ -52,12 +54,29 @@ int main(){
 
     currentBoard.printBoard();
 
-    if (dfs_with_stack(start, end)){
+    // cout << "bfs" << endl;
+    // if (bfs(start, end)){
+    //     Traceback(start, end);
+    // }
+    // else{
+    //     cout << "dfs failed";
+    // }
+    
+    currentBoard.printBoard();
+     
+    // currentBoard.clearPath();
+
+    
+
+    cout << "dijkstra" << endl;
+    if (dijkstra(start, end)){
         Traceback(start, end);
     }
     else{
         cout << "dfs failed";
     }
+
+
 
 
     // if (bfs(start, end)){

@@ -1,6 +1,7 @@
 #pragma once
 #include "x_y_position.hpp"
 #include <iostream>
+#include <limits>
 
 class node{
 
@@ -19,10 +20,15 @@ class node{
         x_y_position *position;
 
         bool inFinalPath;
+
+        int nodeSize;
+
+        // for dijkstras and A*
+        double distance;
     
     public:
 
-        node(node *newNorth, node *newEast, node *newSouth, node *newWest, x_y_position *newPosition);
+        node(node *newNorth, node *newEast, node *newSouth, node *newWest, x_y_position *newPosition, int newSize);
 
         void setNorth(node *newNode);
 
@@ -58,6 +64,13 @@ class node{
 
         bool getInFinalPath();
 
+        int getNodeSize();
+
+        void setNodeSize(int newSize);
+
+        double getDistance();
+
+        void setDistance(double newDist);
 
 };
 

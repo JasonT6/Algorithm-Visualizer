@@ -48,14 +48,18 @@ bool bfs(node *start, node *end){
 
 void Traceback(node *start, node *end){
     cout << "traceback started" << endl;
+    int count = 0;
     node *curNode = end;
     while (curNode != start){
         cout << curNode << endl;
         curNode->setInFinalPath(true);
         curNode = curNode->getReachingNode();
+        count++;
     }
 
+
     cout << "traceback done" << endl;
+    cout << "score" << count << endl;
 }
 
 
@@ -103,6 +107,10 @@ bool dfs_recursive(node *start, node *end){
 
 bool dfs_with_stack(node *start, node *end){
     cout << "dfs_with_stack Started" << endl;
+    if (start->getTraversable() == false || end->getTraversable() == false){
+        cout << "dijkstra fail" << endl;
+        return false;
+    }
     list <node *> stack;
     stack.push_back(start);
 
@@ -144,5 +152,75 @@ bool dfs_with_stack(node *start, node *end){
     }
 
     cout << "dfs_with_stack fail" << endl;
+    return false;
+}
+
+bool dijkstra(node *start, node *end){
+    cout << "dijkstra Started" << endl;
+
+    if (start->getTraversable() == false || end->getTraversable() == false){
+        cout << "dijkstra fail" << endl;
+        return false;
+    }
+
+    priority_queue<pair<double, node*>, vector<pair<double, node*>>, greater<pair<double, node*>>> wavefront;
+    start->setDistance(0);
+    double startDistance = start->getDistance();
+    wavefront.push({startDistance, start});
+
+    while (wavefront.empty() == false){
+        node * curNode = wavefront.top().second;
+        wavefront.pop();
+
+        if (curNode->getVisited()){
+            continue;
+        }
+
+        curNode->setVisited(true);
+
+        if (curNode == end){
+            cout << "dijkstra success" << endl; 
+            return true;
+        }
+
+        if (curNode->getNorth() != nullptr && curNode->getNorth()->getVisited() == false && curNode->getNorth()->getTraversable()){
+            double newDist = curNode->getDistance() + curNode->getNodeSize();
+            if (newDist < curNode->getNorth()->getDistance()){
+                curNode->getNorth()->setReachingNode(curNode);
+                curNode->getNorth()->setDistance(newDist);
+                wavefront.push({newDist,curNode->getNorth()});
+            }
+            
+        }
+
+        if (curNode->getEast() != nullptr && curNode->getEast()->getVisited() == false && curNode->getEast()->getTraversable()){
+            double newDist = curNode->getDistance() + curNode->getNodeSize();
+            if (newDist < curNode->getEast()->getDistance()){
+                curNode->getEast()->setReachingNode(curNode);
+                curNode->getEast()->setDistance(newDist);
+                wavefront.push({newDist,curNode->getEast()});
+            }
+        }
+
+        if (curNode->getSouth() != nullptr && curNode->getSouth()->getVisited() == false && curNode->getSouth()->getTraversable()){
+            double newDist = curNode->getDistance() + curNode->getNodeSize();
+            if (newDist < curNode->getSouth()->getDistance()){
+                curNode->getSouth()->setReachingNode(curNode);
+                curNode->getSouth()->setDistance(newDist);
+                wavefront.push({newDist,curNode->getSouth()});
+            }
+        }
+
+        if (curNode->getWest() != nullptr && curNode->getWest()->getVisited() == false && curNode->getWest()->getTraversable()){
+            double newDist = curNode->getDistance() + curNode->getNodeSize();
+            if (newDist < curNode->getWest()->getDistance()){
+                curNode->getWest()->setReachingNode(curNode);
+                curNode->getWest()->setDistance(newDist);
+                wavefront.push({newDist,curNode->getWest()});
+            }
+        }
+    }
+
+    cout << "dijkstra fail" << endl;
     return false;
 }

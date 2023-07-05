@@ -4,6 +4,7 @@
 #include "node.hpp"
 #include "board.hpp"
 #include <list>
+#include <queue>
 
 using namespace std;
 
@@ -14,3 +15,5 @@ void Traceback(node *start, node *end);
 bool dfs_recursive(node *start, node *end);
 
 bool dfs_with_stack(node *start, node *end);
+
+bool dijkstra(node *start, node *end);

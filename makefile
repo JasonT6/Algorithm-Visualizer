@@ -1,7 +1,7 @@
 # Compiler
 CXX := g++
 # Compiler flags
-CXXFLAGS := -Wall -Wextra -std=c++17
+CXXFLAGS := -Wall -Wextra -std=c++17 -g
 
 # Source files
 SRCS := main.cpp node.cpp x_y_position.cpp board.cpp algorithms.cpp

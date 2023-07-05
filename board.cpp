@@ -58,12 +58,12 @@ int board::getNodeSize(){
 node *makeNodeColumn(int columnLen, int xVal, int newNodeSize){
 
     x_y_position *newPos = new x_y_position(xVal, newNodeSize/2);
-    node *head = new node(nullptr, nullptr, nullptr, nullptr, newPos);
+    node *head = new node(nullptr, nullptr, nullptr, nullptr, newPos, newNodeSize);
 
     node *cur = head;
     for (int i = 0; i < columnLen - 1; i++){
         x_y_position *Pos = new x_y_position(xVal, newNodeSize/2 + i * newNodeSize);
-        node * newNode = new node(cur,nullptr, nullptr, nullptr, Pos);
+        node * newNode = new node(cur,nullptr, nullptr, nullptr, Pos, newNodeSize);
         cur->setSouth(newNode);
         cur = newNode;
     }
@@ -114,6 +114,7 @@ void board::printBoard(){
             }
             else if (curMov->getVisited()){
                 cout << ". ";
+                // cout << curMov->getDistance() << " ";
             }
             else{
                 cout << "  ";
@@ -166,3 +167,22 @@ void board::createRandomObstacles(){
         curRow = curRow->getSouth();
     }
 }
+
+void board::clearPath(){
+
+    node *curRow = head;
+    node *curMov = curRow;
+
+    while(curRow != nullptr){
+        curMov = curRow;
+        while(curMov != nullptr){
+            curMov->setVisited(false);
+            curMov->setReachingNode(nullptr);
+            curMov->setDistance(numeric_limits<int>::max());
+            curMov->setInFinalPath(false);
+            curMov = curMov->getEast();
+        }
+        curRow = curRow->getSouth();
+    }
+}
+

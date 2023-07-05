@@ -2,6 +2,7 @@
 #include <vector>
 #include "node.hpp"
 #include <time.h>
+#include <limits>
 
 using namespace std;
 
@@ -40,6 +41,8 @@ class board{
         void printBoard();
 
         void createRandomObstacles();
+
+        void clearPath();
 
 };
 
