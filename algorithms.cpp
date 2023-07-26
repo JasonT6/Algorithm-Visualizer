@@ -1,11 +1,21 @@
 #include "algorithms.hpp"
 
-bool bfs(node *start, node *end){
+bool bfs(UIelements *curUI, node *start, node *end){
     cout << "bfs Started" << endl;
     list <node *> wavefront;
     wavefront.push_back(start);
 
     while (wavefront.empty() == false){
+        SDL_Delay(0.01);
+        curUI->drawBoard();
+
+        SDL_Event windowEvent;
+        if (SDL_PollEvent(&windowEvent)){
+            if (SDL_QUIT == windowEvent.type){
+                break;
+            }
+        }
+
         node * curNode = wavefront.front();
         wavefront.pop_front();
 
@@ -63,17 +73,31 @@ void Traceback(node *start, node *end){
 }
 
 
-bool dfs_recursive(node *start, node *end){
-    cout << "dfs_recursive started" << endl;
+bool dfs_recursive(UIelements *curUI, node *start, node *end){
+    // cout << "dfs_recursive started" << endl;
+    
+    SDL_Delay(1);
+    curUI->drawBoard();
+
+    SDL_Event windowEvent;
+    if (SDL_PollEvent(&windowEvent)){
+        if (SDL_QUIT == windowEvent.type){
+            // needs to return true to stop the loop but then it thinks it was successful when it actually was not
+            return true;
+        }
+    }
+
     if (start == end){
         cout << "dfs_recursive success" << endl;
         return true;
     }
 
+    start->setVisited(true);
+
     if (start->getNorth() != nullptr && start->getNorth()->getReachingNode() == nullptr && start->getNorth()->getTraversable()){
             start->getNorth()->setReachingNode(start);
             start = start->getNorth();
-            if (dfs_recursive(start, end)){
+            if (dfs_recursive(curUI, start, end)){
                 return true;
             }
         }
@@ -81,7 +105,7 @@ bool dfs_recursive(node *start, node *end){
     if (start->getEast() != nullptr && start->getEast()->getReachingNode() == nullptr && start->getEast()->getTraversable()){
         start->getEast()->setReachingNode(start);
         start = start->getEast();
-        if (dfs_recursive(start, end)){
+        if (dfs_recursive(curUI, start, end)){
             return true;
         }
     }
@@ -89,7 +113,7 @@ bool dfs_recursive(node *start, node *end){
     if (start->getSouth() != nullptr && start->getSouth()->getReachingNode() == nullptr && start->getSouth()->getTraversable()){
         start->getSouth()->setReachingNode(start);
         start = start->getSouth();
-        if (dfs_recursive(start, end)){
+        if (dfs_recursive(curUI, start, end)){
             return true;
         }
     }
@@ -97,7 +121,7 @@ bool dfs_recursive(node *start, node *end){
     if (start->getWest() != nullptr && start->getWest()->getReachingNode() == nullptr && start->getWest()->getTraversable()){
         start->getWest()->setReachingNode(start);
         start = start->getWest();
-        if (dfs_recursive(start, end)){
+        if (dfs_recursive(curUI, start, end)){
             return true;
         }
     }
@@ -105,7 +129,7 @@ bool dfs_recursive(node *start, node *end){
     return false;
 }
 
-bool dfs_with_stack(node *start, node *end){
+bool dfs_with_stack(UIelements *curUI, node *start, node *end){
     cout << "dfs_with_stack Started" << endl;
     if (start->getTraversable() == false || end->getTraversable() == false){
         cout << "dijkstra fail" << endl;
@@ -115,6 +139,16 @@ bool dfs_with_stack(node *start, node *end){
     stack.push_back(start);
 
     while (stack.empty() == false){
+        SDL_Delay(1);
+        curUI->drawBoard();
+
+        SDL_Event windowEvent;
+        if (SDL_PollEvent(&windowEvent)){
+            if (SDL_QUIT == windowEvent.type){
+                break;
+            }
+        }
+        
         node * curNode = stack.back();
         stack.pop_back();
         cout << "traversing: " << curNode << endl;
@@ -155,7 +189,7 @@ bool dfs_with_stack(node *start, node *end){
     return false;
 }
 
-bool dijkstra(node *start, node *end){
+bool dijkstra(UIelements *curUI, node *start, node *end){
     cout << "dijkstra Started" << endl;
 
     if (start->getTraversable() == false || end->getTraversable() == false){
@@ -169,6 +203,16 @@ bool dijkstra(node *start, node *end){
     wavefront.push({startDistance, start});
 
     while (wavefront.empty() == false){
+        SDL_Delay(1);
+        curUI->drawBoard();
+
+        SDL_Event windowEvent;
+        if (SDL_PollEvent(&windowEvent)){
+            if (SDL_QUIT == windowEvent.type){
+                break;
+            }
+        }
+        
         node * curNode = wavefront.top().second;
         wavefront.pop();
 

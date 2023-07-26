@@ -21,6 +21,10 @@ class board{
         int widthInNodes;
 
         int nodeSize;
+
+        node *startNode;
+
+        node *endNode;
     
     public:
 
@@ -43,6 +47,16 @@ class board{
         void createRandomObstacles();
 
         void clearPath();
+
+        node * getStartNode();
+
+        void setStartNode(node * newNode);
+
+        node * getEndNode();
+
+        void setEndNode(node * newNode);
+
+        
 
 };
 

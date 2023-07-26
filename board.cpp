@@ -186,3 +186,18 @@ void board::clearPath(){
     }
 }
 
+node * board::getStartNode(){
+    return startNode;
+}   
+
+void board::setStartNode(node * newNode){
+    startNode = newNode;
+}
+
+node * board::getEndNode(){
+    return endNode;
+}   
+
+void board::setEndNode(node * newNode){
+    endNode = newNode;
+}
