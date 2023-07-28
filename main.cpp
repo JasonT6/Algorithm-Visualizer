@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const int WIDTH = 1000, HEIGHT = 1000;
+const int WIDTH = 500, HEIGHT = 500;
 
 
 int main(int argc, char *argv[]){
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
     // SDL_RenderDrawPoint(renderer, WIDTH/2, HEIGHT/2);
 
     // SDL_RenderPresent(renderer);
-    board currentBoard = board(200, 200, 10);
+    board currentBoard = board(50, 50, 10);
     UIelements newUI = UIelements(&currentBoard, renderer, window);
     currentBoard.createRandomObstacles();
     node * start = currentBoard.getHead();
@@ -53,11 +53,14 @@ int main(int argc, char *argv[]){
     }
     node * end = current;
 
-    if (dfs_with_stack(&newUI, start, end)){
+    currentBoard.setStartNode(start);
+    currentBoard.setEndNode(end);
+
+    if (bfs(&newUI, start, end)){
         Traceback(start, end);
     }
 
-    newUI.drawBoard();
+    newUI.renderAll();
 
     if (NULL == window){
         cout << "failed" << SDL_GetError()<< endl;
@@ -73,6 +76,9 @@ int main(int argc, char *argv[]){
                 break;
             }
         }
+
+        newUI.renderAll();
+
     }
 
     SDL_DestroyWindow (window);

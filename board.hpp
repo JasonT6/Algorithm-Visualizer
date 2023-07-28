@@ -25,6 +25,8 @@ class board{
         node *startNode;
 
         node *endNode;
+
+        vector <vector <node *>> lookupMatrix;
     
     public:
 
@@ -56,7 +58,11 @@ class board{
 
         void setEndNode(node * newNode);
 
-        
+        void createNodeLookupMatrix();
+
+        vector <vector <node *>> getLookupMatrix();
+
+        void printLookup();
 
 };
 

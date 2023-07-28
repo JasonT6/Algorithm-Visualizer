@@ -27,6 +27,10 @@ board::board(int newHeightInNodes, int newWidthInNodes, int newNodeSize){
     mergeColumns(columnHeadList);
 
     head = columnHeadList[0];
+
+    createNodeLookupMatrix();
+
+    printLookup();
    
 }
 
@@ -200,4 +204,42 @@ node * board::getEndNode(){
 
 void board::setEndNode(node * newNode){
     endNode = newNode;
+}
+
+void board::createNodeLookupMatrix(){
+    node * curRow = head;
+    node * curCol = head;
+
+    vector <vector <node *>> newlookupMatrix;
+
+    while(curRow != nullptr){
+        
+        vector <node *> curColVec;
+
+        while(curCol != nullptr){
+            curColVec.push_back(curCol);
+            curCol = curCol->getEast();
+        }
+        newlookupMatrix.push_back(curColVec);
+        curRow = curRow->getSouth();
+        curCol = curRow;
+    }
+
+    lookupMatrix = newlookupMatrix;
+
+}
+
+vector <vector <node *>> board::getLookupMatrix(){
+    return lookupMatrix;
+}
+
+//for debugging
+void board::printLookup(){
+    cout << "did it get here" << endl;
+    for (int i = 0; i < lookupMatrix.size(); ++i) {
+        for (int j = 0; j < lookupMatrix[i].size(); ++j) {
+            cout << lookupMatrix[i][j] << " ";
+        }
+        cout << endl;
+    }
 }

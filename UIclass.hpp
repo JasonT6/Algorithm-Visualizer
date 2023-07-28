@@ -5,6 +5,7 @@
 #include "board.hpp"
 #include "algorithms.hpp"
 #include <SDL2/SDL.h>
+#include <cmath>
 
 class UIelements{
     private:
@@ -27,5 +28,11 @@ class UIelements{
         void setAlgorithm(string newAlgo);
 
         void drawBoard();
+
+        void checkClick();
+
+        void renderAll();
+
+        node * clickedNode(int x, int y);
 
 };

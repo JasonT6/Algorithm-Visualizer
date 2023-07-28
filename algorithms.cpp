@@ -7,7 +7,7 @@ bool bfs(UIelements *curUI, node *start, node *end){
 
     while (wavefront.empty() == false){
         SDL_Delay(0.01);
-        curUI->drawBoard();
+        curUI->renderAll();
 
         SDL_Event windowEvent;
         if (SDL_PollEvent(&windowEvent)){
@@ -77,7 +77,7 @@ bool dfs_recursive(UIelements *curUI, node *start, node *end){
     // cout << "dfs_recursive started" << endl;
     
     SDL_Delay(1);
-    curUI->drawBoard();
+    curUI->renderAll();
 
     SDL_Event windowEvent;
     if (SDL_PollEvent(&windowEvent)){
@@ -140,7 +140,7 @@ bool dfs_with_stack(UIelements *curUI, node *start, node *end){
 
     while (stack.empty() == false){
         SDL_Delay(1);
-        curUI->drawBoard();
+        curUI->renderAll();
 
         SDL_Event windowEvent;
         if (SDL_PollEvent(&windowEvent)){
@@ -204,7 +204,7 @@ bool dijkstra(UIelements *curUI, node *start, node *end){
 
     while (wavefront.empty() == false){
         SDL_Delay(1);
-        curUI->drawBoard();
+        curUI->renderAll();
 
         SDL_Event windowEvent;
         if (SDL_PollEvent(&windowEvent)){
