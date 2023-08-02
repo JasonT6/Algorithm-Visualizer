@@ -243,3 +243,11 @@ void board::printLookup(){
         cout << endl;
     }
 }
+
+void board::setSelectedAlgo(string newAlgo){
+    selectedAlgo = newAlgo;
+}
+
+string board::getSelectedAlgo(){
+    return selectedAlgo;
+}

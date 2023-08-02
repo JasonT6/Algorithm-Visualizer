@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const int WIDTH = 500, HEIGHT = 500;
+const int WIDTH = 1400, HEIGHT = 800;
 
 
 int main(int argc, char *argv[]){
@@ -39,26 +39,26 @@ int main(int argc, char *argv[]){
     // SDL_RenderDrawPoint(renderer, WIDTH/2, HEIGHT/2);
 
     // SDL_RenderPresent(renderer);
-    board currentBoard = board(50, 50, 10);
-    UIelements newUI = UIelements(&currentBoard, renderer, window);
-    currentBoard.createRandomObstacles();
-    node * start = currentBoard.getHead();
-    node * current = start;
-    while (current->getEast() != nullptr){
-        current = current->getEast();
-    }
+    board currentBoard = board(40, 40, 20);
+    UIelements newUI = UIelements(&currentBoard, renderer, window, WIDTH, HEIGHT);
+    // currentBoard.createRandomObstacles();
+    // node * start = currentBoard.getHead();
+    // node * current = start;
+    // while (current->getEast() != nullptr){
+    //     current = current->getEast();
+    // }
 
-    while (current->getSouth() != nullptr){
-        current = current->getSouth();
-    }
-    node * end = current;
+    // while (current->getSouth() != nullptr){
+    //     current = current->getSouth();
+    // }
+    // node * end = current;
 
-    currentBoard.setStartNode(start);
-    currentBoard.setEndNode(end);
+    // currentBoard.setStartNode(start);
+    // currentBoard.setEndNode(end);
 
-    if (bfs(&newUI, start, end)){
-        Traceback(start, end);
-    }
+    // if (bfs(&newUI, start, end)){
+    //     Traceback(start, end);
+    // }
 
     newUI.renderAll();
 
