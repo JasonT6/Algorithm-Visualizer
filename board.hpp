@@ -29,6 +29,8 @@ class board{
         vector <vector <node *>> lookupMatrix;
 
         string selectedAlgo;
+
+        bool runAlgo;
     
     public:
 
@@ -69,6 +71,10 @@ class board{
         void setSelectedAlgo(string newAlgo);
 
         string getSelectedAlgo();
+
+        void setRunAlgo(bool set);
+
+        bool getRunAlgo();
 
 };
 

@@ -56,6 +56,8 @@ class UIelements{
 
         void checkButtonClick(vector <Button> relevantList);
 
+        void drawMainMenu();
+
 };
 
 class Button{

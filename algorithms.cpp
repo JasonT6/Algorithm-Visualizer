@@ -6,7 +6,6 @@ bool bfs(UIelements *curUI, node *start, node *end){
     wavefront.push_back(start);
 
     while (wavefront.empty() == false){
-        SDL_Delay(0.01);
         curUI->renderAll();
 
         SDL_Event windowEvent;

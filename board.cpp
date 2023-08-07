@@ -30,6 +30,10 @@ board::board(int newHeightInNodes, int newWidthInNodes, int newNodeSize){
 
     createNodeLookupMatrix();
 
+    runAlgo = false;
+
+    selectedAlgo = "bfs";
+
     printLookup();
    
 }
@@ -250,4 +254,12 @@ void board::setSelectedAlgo(string newAlgo){
 
 string board::getSelectedAlgo(){
     return selectedAlgo;
+}
+
+void board::setRunAlgo(bool set){
+    runAlgo = set;
+}
+
+bool board::getRunAlgo(){
+    return runAlgo;
 }

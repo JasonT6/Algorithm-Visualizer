@@ -142,7 +142,7 @@ void UIelements::checkBoardClick(){
                 }
             }
         }
-        break;
+        // break;
     }
 }
 
@@ -156,21 +156,20 @@ void UIelements::renderAll(){
     // cout << UIstate << endl;
     if (UIstate == "set_start_node"){
         checkBoardClick();
-        drawBoard();
-        
+        drawMainMenu();
     }
     else if (UIstate == "set_end_node"){
         checkBoardClick();
-        drawBoard();
+        drawMainMenu();
     }
     else if (UIstate == "render_board_main_menu"){
         checkButtonClick(mainButtonList);
-        drawBoard();
+        drawMainMenu();
     }
     else if (UIstate == "render_board_obstacle_menu"){
         checkButtonClick(obstacleButtonList);
-        drawBoard();
     }
+    // cout << UIstate << endl;
 
 }
 
@@ -247,12 +246,26 @@ void UIelements::checkButtonClick(vector <Button> relevantList){
         } 
         else if (clickedButton->buttonType == "start"){
             // Handle the action for the "start" button type
+            if (curBoard->getSelectedAlgo() == ""){
+                break;
+            }
+            else{
+                curBoard->setRunAlgo(true);
+            }
         } 
         else if (clickedButton->buttonType == "clear_path"){
-            // Handle the action for the "clear_path" button type
             curBoard->clearPath();
         }
-
-        break;
+        cout << clickedButton->buttonType <<endl;
+        // break;
     }
+}
+
+void UIelements::drawMainMenu(){
+    for (auto &curButton : mainButtonList){
+        SDL_Rect curRect = {curButton.x1, curButton.y1, curButton.x2 - curButton.x1, curButton.y2 - curButton.y2};
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderDrawRect(renderer, &curRect);
+    }
+    SDL_RenderPresent(renderer);
 }

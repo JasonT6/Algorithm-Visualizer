@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const int WIDTH = 1400, HEIGHT = 800;
+const int WIDTH = 1200, HEIGHT = 800;
 
 
 int main(int argc, char *argv[]){
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]){
     // SDL_RenderPresent(renderer);
     board currentBoard = board(40, 40, 20);
     UIelements newUI = UIelements(&currentBoard, renderer, window, WIDTH, HEIGHT);
-    // currentBoard.createRandomObstacles();
+    currentBoard.createRandomObstacles();
     // node * start = currentBoard.getHead();
     // node * current = start;
     // while (current->getEast() != nullptr){
@@ -78,6 +78,29 @@ int main(int argc, char *argv[]){
         }
 
         newUI.renderAll();
+        if (currentBoard.getRunAlgo() == true){
+            if (currentBoard.getSelectedAlgo() == "bfs"){
+                if(bfs(&newUI, currentBoard.getStartNode(), currentBoard.getEndNode())){
+                    Traceback(currentBoard.getStartNode(), currentBoard.getEndNode());
+                }
+            }
+            else if (currentBoard.getSelectedAlgo() == "dfs"){
+                if(dfs_with_stack(&newUI, currentBoard.getStartNode(), currentBoard.getEndNode())){
+                    Traceback(currentBoard.getStartNode(), currentBoard.getEndNode());
+                }
+            }
+            else if (currentBoard.getSelectedAlgo() == "dijkstra"){
+                if(dijkstra(&newUI, currentBoard.getStartNode(), currentBoard.getEndNode())){
+                    Traceback(currentBoard.getStartNode(), currentBoard.getEndNode());
+                }
+            }
+            else if (currentBoard.getSelectedAlgo() == "A_star"){
+                if(bfs(&newUI, currentBoard.getStartNode(), currentBoard.getEndNode())){
+                    Traceback(currentBoard.getStartNode(), currentBoard.getEndNode());
+                }
+            }
+            currentBoard.setRunAlgo(false);
+        }
 
     }
 
