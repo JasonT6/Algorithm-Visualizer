@@ -20,3 +20,5 @@ bool dfs_recursive(UIelements *curUI, node *start, node *end);
 bool dfs_with_stack(UIelements *curUI, node *start, node *end);
 
 bool dijkstra(UIelements *curUI, node *start, node *end);
+
+bool a_star(UIelements *curUI, node *start, node *end);

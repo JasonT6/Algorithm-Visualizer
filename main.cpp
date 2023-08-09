@@ -95,7 +95,7 @@ int main(int argc, char *argv[]){
                 }
             }
             else if (currentBoard.getSelectedAlgo() == "A_star"){
-                if(bfs(&newUI, currentBoard.getStartNode(), currentBoard.getEndNode())){
+                if(a_star(&newUI, currentBoard.getStartNode(), currentBoard.getEndNode())){
                     Traceback(currentBoard.getStartNode(), currentBoard.getEndNode());
                 }
             }

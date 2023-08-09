@@ -267,3 +267,87 @@ bool dijkstra(UIelements *curUI, node *start, node *end){
     cout << "dijkstra fail" << endl;
     return false;
 }
+
+bool a_star(UIelements *curUI, node *start, node *end){
+    cout << "a star Started" << endl;
+
+    if (start->getTraversable() == false || end->getTraversable() == false){
+        cout << "a star fail" << endl;
+        return false;
+    }
+
+    auto manhattanDistance = [](node * cur, node * dest){
+        return abs(cur->getNodePosition()->getX() - dest->getNodePosition()->getX()) + abs(cur->getNodePosition()->getY() - dest->getNodePosition()->getY());
+    };
+
+    priority_queue<pair<double, node*>, vector<pair<double, node*>>, greater<pair<double, node*>>> wavefront;
+    start->setDistance(0);
+    double startDistance = start->getDistance();
+    wavefront.push({startDistance, start});
+
+    while (wavefront.empty() == false){
+        SDL_Delay(1);
+        curUI->renderAll();
+
+        SDL_Event windowEvent;
+        if (SDL_PollEvent(&windowEvent)){
+            if (SDL_QUIT == windowEvent.type){
+                break;
+            }
+        }
+        
+        node * curNode = wavefront.top().second;
+        wavefront.pop();
+
+        if (curNode->getVisited()){
+            continue;
+        }
+
+        curNode->setVisited(true);
+
+        if (curNode == end){
+            cout << "a star success" << endl; 
+            return true;
+        }
+
+        if (curNode->getNorth() != nullptr && curNode->getNorth()->getVisited() == false && curNode->getNorth()->getTraversable()){
+            double newDist = curNode->getDistance() + curNode->getNodeSize();
+            if (newDist < curNode->getNorth()->getDistance()){
+                curNode->getNorth()->setReachingNode(curNode);
+                curNode->getNorth()->setDistance(newDist);
+                wavefront.push({newDist + manhattanDistance(curNode->getNorth(), end) ,curNode->getNorth()});
+            }
+            
+        }
+
+        if (curNode->getEast() != nullptr && curNode->getEast()->getVisited() == false && curNode->getEast()->getTraversable()){
+            double newDist = curNode->getDistance() + curNode->getNodeSize();
+            if (newDist < curNode->getEast()->getDistance()){
+                curNode->getEast()->setReachingNode(curNode);
+                curNode->getEast()->setDistance(newDist);
+                wavefront.push({newDist + manhattanDistance(curNode->getEast(), end), curNode->getEast()});
+            }
+        }
+
+        if (curNode->getSouth() != nullptr && curNode->getSouth()->getVisited() == false && curNode->getSouth()->getTraversable()){
+            double newDist = curNode->getDistance() + curNode->getNodeSize();
+            if (newDist < curNode->getSouth()->getDistance()){
+                curNode->getSouth()->setReachingNode(curNode);
+                curNode->getSouth()->setDistance(newDist);
+                wavefront.push({newDist + manhattanDistance(curNode->getSouth(), end) ,curNode->getSouth()});
+            }
+        }
+
+        if (curNode->getWest() != nullptr && curNode->getWest()->getVisited() == false && curNode->getWest()->getTraversable()){
+            double newDist = curNode->getDistance() + curNode->getNodeSize();
+            if (newDist < curNode->getWest()->getDistance()){
+                curNode->getWest()->setReachingNode(curNode);
+                curNode->getWest()->setDistance(newDist);
+                wavefront.push({newDist + manhattanDistance(curNode->getWest(), end), curNode->getWest()});
+            }
+        }
+    }
+
+    cout << "a star fail" << endl;
+    return false;
+}
