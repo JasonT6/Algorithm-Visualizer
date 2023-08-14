@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
     // SDL_RenderDrawPoint(renderer, WIDTH/2, HEIGHT/2);
 
     // SDL_RenderPresent(renderer);
-    board currentBoard = board(40, 40, 20);
+    board currentBoard = board(80, 80, 10);
     UIelements newUI = UIelements(&currentBoard, renderer, window, WIDTH, HEIGHT);
     currentBoard.createRandomObstacles();
     // node * start = currentBoard.getHead();

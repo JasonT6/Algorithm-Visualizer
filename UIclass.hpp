@@ -54,9 +54,13 @@ class UIelements{
 
         void checkExitClick();
 
-        void checkButtonClick(vector <Button> relevantList);
+        void checkMainMenuButtonClick();
+        
+        void checkObstacleMenuButtonClick();
 
         void drawMainMenu();
+
+        void drawObstacleMenu();
 
 };
 

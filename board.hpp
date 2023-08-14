@@ -76,6 +76,8 @@ class board{
 
         bool getRunAlgo();
 
+        void clearObstacles();
+
 };
 
 node *makeNodeColumn(int columnLen, int xVal, int newNodeSize);

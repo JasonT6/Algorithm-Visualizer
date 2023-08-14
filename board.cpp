@@ -263,3 +263,11 @@ void board::setRunAlgo(bool set){
 bool board::getRunAlgo(){
     return runAlgo;
 }
+
+void board::clearObstacles(){
+    for (int i = 0; i < lookupMatrix.size(); i++){
+        for (int j = 0; j < lookupMatrix[i].size(); j++){
+            lookupMatrix[i][j]->setTraversable(true);
+        }
+    }
+}

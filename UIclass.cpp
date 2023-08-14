@@ -48,6 +48,36 @@ UIelements::UIelements(board * newBoard, SDL_Renderer * newRenderer, SDL_Window 
     mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "clear_path"));
     curY += buttonSize;
 
+
+    curY = 0;
+
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "start_set_obstacles"));
+    curY += buttonSize;
+
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "stop_set_obstacles"));
+    curY += buttonSize;
+
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "erase_obstacles"));
+    curY += buttonSize;
+
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "Algo_1"));
+    curY += buttonSize;
+
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "Algo_2"));
+    curY += buttonSize;
+
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "Algo_3"));
+    curY += buttonSize;
+
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "set_random_obstacles"));
+    curY += buttonSize;
+
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "clear_obstacles"));
+    curY += buttonSize;
+
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "go_back"));
+    curY += buttonSize;
+
 }
 
 Button::Button(int newx1, int newy1, int newx2, int newy2, string newButtonType){
@@ -140,13 +170,37 @@ void UIelements::checkBoardClick(){
                         UIstate = "render_board_main_menu";
                     }
                 }
+                else if (UIstate == "start_set_obstacles"){
+                    clickedNode(x,y)->setTraversable(false);
+                }
+                else if (UIstate == "erase_obstacles"){
+                    clickedNode(x,y)->setTraversable(true);
+                }
             }
         }
+        else if (event.type == SDL_MOUSEMOTION && (event.motion.state & SDL_BUTTON_LMASK)){
+            if (UIstate == "start_set_obstacles"){
+                int x = event.motion.x;
+                int y = event.motion.y;
+                if (x <= curBoard->getWidthInPx() && y <= curBoard->getHeightInPx()) {
+                    clickedNode(x, y)->setTraversable(false);
+                }
+            }
+            else if (UIstate == "erase_obstacles"){
+                int x = event.motion.x;
+                int y = event.motion.y;
+                if (x <= curBoard->getWidthInPx() && y <= curBoard->getHeightInPx()) {
+                    clickedNode(x, y)->setTraversable(true);
+                }
+            }
         // break;
+        }
     }
 }
 
 void UIelements::renderAll(){
+    // bug with this 
+    // SDL_RenderClear(renderer);
     drawBoard();
     // if (UIstate == "start_select"){
     //     checkBoardClick("select_start_node");
@@ -163,14 +217,24 @@ void UIelements::renderAll(){
         drawMainMenu();
     }
     else if (UIstate == "render_board_main_menu"){
-        checkButtonClick(mainButtonList);
+        checkMainMenuButtonClick();
         drawMainMenu();
     }
     else if (UIstate == "render_board_obstacle_menu"){
-        checkButtonClick(obstacleButtonList);
+        checkObstacleMenuButtonClick();
+        drawObstacleMenu();
+    }
+    else if (UIstate == "start_set_obstacles"){
+        checkBoardClick();
+        drawObstacleMenu();
+        checkObstacleMenuButtonClick();
+    }
+    else if (UIstate == "erase_obstacles"){
+        checkBoardClick();
+        drawObstacleMenu();
+        checkObstacleMenuButtonClick();
     }
     // cout << UIstate << endl;
-
 }
 
 node * UIelements::clickedNode(int x, int y){
@@ -194,7 +258,7 @@ void UIelements::checkExitClick(){
 
 }
 
-void UIelements::checkButtonClick(vector <Button> relevantList){
+void UIelements::checkMainMenuButtonClick(){
     SDL_Event event;
 
     while (SDL_PollEvent(&event)){
@@ -203,7 +267,7 @@ void UIelements::checkButtonClick(vector <Button> relevantList){
             int x = event.button.x;
             int y = event.button.y;
             if (x > curBoard->getWidthInPx()){
-                for(auto &thisButton: relevantList){
+                for(auto &thisButton: mainButtonList){
                     if (y > thisButton.y1 && y < thisButton.y2){
                         clickedButton = &thisButton;
                         cout << "button Cliicked" << endl;
@@ -261,10 +325,76 @@ void UIelements::checkButtonClick(vector <Button> relevantList){
     }
 }
 
+void UIelements::checkObstacleMenuButtonClick(){
+    SDL_Event event;
+
+    while (SDL_PollEvent(&event)){
+        Button * clickedButton = nullptr;
+        if (event.type == SDL_MOUSEBUTTONDOWN){
+            int x = event.button.x;
+            int y = event.button.y;
+            if (x > curBoard->getWidthInPx()){
+                for(auto &thisButton: obstacleButtonList){
+                    if (y > thisButton.y1 && y < thisButton.y2){
+                        clickedButton = &thisButton;
+                        cout << "button Cliicked" << endl;
+                        break;
+                    }
+                }
+                
+            }
+        }
+        if (clickedButton == nullptr){
+            break;
+        }
+        if (clickedButton->buttonType == "start_set_obstacles"){
+            UIstate = "start_set_obstacles";
+            cout << UIstate << endl;
+        } 
+        else if (clickedButton->buttonType == "stop_set_obstacles"){
+            UIstate = "render_board_obstacle_menu";
+        } 
+        else if (clickedButton->buttonType == "erase_obstacles"){
+            UIstate = "erase_obstacles";
+        } 
+        else if (clickedButton->buttonType == "Algo_1"){
+
+        } 
+        else if (clickedButton->buttonType == "Algo_2"){
+
+        } 
+        else if (clickedButton->buttonType == "Algo_3"){
+            // Handle the action for the "blank1" button type
+        } 
+        else if (clickedButton->buttonType == "set_random_obstacles"){
+            curBoard->createRandomObstacles();
+        } 
+        else if (clickedButton->buttonType == "clear_obstacles"){
+            // Handle the action for the "blank2" button type
+            curBoard->clearObstacles();
+        } 
+        else if (clickedButton->buttonType == "go_back"){
+            // Handle the action for the "blank3" button type
+            UIstate = "render_board_main_menu";
+        }
+        cout << clickedButton->buttonType <<endl;
+        // break;
+    }
+}
+
 void UIelements::drawMainMenu(){
     for (auto &curButton : mainButtonList){
         SDL_Rect curRect = {curButton.x1, curButton.y1, curButton.x2 - curButton.x1, curButton.y2 - curButton.y2};
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderDrawRect(renderer, &curRect);
+    }
+    SDL_RenderPresent(renderer);
+}
+
+void UIelements::drawObstacleMenu(){
+    for (auto &curButton : obstacleButtonList){
+        SDL_Rect curRect = {curButton.x1, curButton.y1, curButton.x2 - curButton.x1, curButton.y2 - curButton.y2};
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
         SDL_RenderDrawRect(renderer, &curRect);
     }
     SDL_RenderPresent(renderer);
