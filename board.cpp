@@ -34,7 +34,7 @@ board::board(int newHeightInNodes, int newWidthInNodes, int newNodeSize){
 
     selectedAlgo = "bfs";
 
-    printLookup();
+    // printLookup();
    
 }
 

@@ -6,6 +6,7 @@
 #include "algorithms.hpp"
 #include <SDL2/SDL.h>
 #include <cmath>
+#include <SDL2/SDL_ttf.h>
 
 class Button;
 
@@ -30,9 +31,11 @@ class UIelements{
 
         vector <Button> obstacleButtonList;
 
+        TTF_Font *font;
+
     public:
 
-        UIelements(board * newBoard, SDL_Renderer * newRenderer, SDL_Window * newWindow, int newWIDTH, int newHEIGHT);
+        UIelements(board * newBoard, SDL_Renderer * newRenderer, TTF_Font *newFont, SDL_Window * newWindow, int newWIDTH, int newHEIGHT);
 
         board * getCurBoard();
 
@@ -71,6 +74,7 @@ class Button{
         int x2;
         int y2;
         string buttonType;
+        string buttonName;
 
-        Button(int newx1, int newy1, int newx2, int newy2, string newButtonType);
+        Button(int newx1, int newy1, int newx2, int newy2, string newButtonType, string newButtonName);
 };

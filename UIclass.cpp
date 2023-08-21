@@ -1,86 +1,87 @@
 #include "UIclass.hpp"
 #include <iostream>
 
-UIelements::UIelements(board * newBoard, SDL_Renderer * newRenderer, SDL_Window * newWindow, int newWIDTH, int newHEIGHT){
+UIelements::UIelements(board * newBoard, SDL_Renderer * newRenderer, TTF_Font *newFont, SDL_Window * newWindow, int newWIDTH, int newHEIGHT){
     curBoard = newBoard;
     renderer = newRenderer;
     window = newWindow;
     UIstate = "render_board_main_menu";
     WIDTH = newWIDTH;
     HEIGHT = newHEIGHT;
+    font = newFont;
 
     int curY = 0;
     int buttonSize = 60;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "set_start_end"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "set_start_end", "Set Start / End"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "select_algo"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "select_algo", "SELECT ALGORITHM"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "select_bfs"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "select_bfs", "Select BFS"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "select_dfs"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "select_dfs", "Select DFS"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "select_dijkstra"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "select_dijkstra", "Select Dijksra"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "select_A_star"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "select_A_star", "Select A-Star"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "blank1"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "blank1", "blank1"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "obstacles"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "obstacles", "Select Obstacles"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "blank2"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "blank2", "blank2"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "blank3"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "blank3", "blank3"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "start"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "start", "Start!"));
     curY += buttonSize;
 
-    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "clear_path"));
+    mainButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "clear_path", "Clear Path"));
     curY += buttonSize;
 
 
     curY = 0;
 
-    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "start_set_obstacles"));
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "start_set_obstacles", "Start Set Obstacles"));
     curY += buttonSize;
 
-    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "stop_set_obstacles"));
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "stop_set_obstacles", "Stop Set Obstacles"));
     curY += buttonSize;
 
-    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "erase_obstacles"));
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "erase_obstacles", "Erase Obstacles"));
     curY += buttonSize;
 
-    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "Algo_1"));
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "Algo_1", "Algo 1"));
     curY += buttonSize;
 
-    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "Algo_2"));
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "Algo_2", "Algo 2"));
     curY += buttonSize;
 
-    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "Algo_3"));
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "Algo_3", "Algo 3"));
     curY += buttonSize;
 
-    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "set_random_obstacles"));
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "set_random_obstacles", "Set Random Obstacles"));
     curY += buttonSize;
 
-    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "clear_obstacles"));
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "clear_obstacles", "Clear All Obstacles"));
     curY += buttonSize;
 
-    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "go_back"));
+    obstacleButtonList.push_back(Button(curBoard->getWidthInPx(), curY, WIDTH, curY + buttonSize, "go_back", "Back"));
     curY += buttonSize;
 
 }
 
-Button::Button(int newx1, int newy1, int newx2, int newy2, string newButtonType){
+Button::Button(int newx1, int newy1, int newx2, int newy2, string newButtonType, string newButtonName){
     x1 = newx1;
     y1 = newy1;
 
@@ -88,6 +89,7 @@ Button::Button(int newx1, int newy1, int newx2, int newy2, string newButtonType)
     y2 = newy2;
 
     buttonType = newButtonType;
+    buttonName = newButtonName;
 
 }
 
@@ -144,7 +146,6 @@ void UIelements::drawBoard(){
         curRow = curRow->getSouth();
     }
 
-    SDL_RenderPresent(renderer);
 }
 
 void UIelements::checkBoardClick(){
@@ -200,7 +201,7 @@ void UIelements::checkBoardClick(){
 
 void UIelements::renderAll(){
     // bug with this 
-    // SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer, 0,0,0, 255);
     drawBoard();
     // if (UIstate == "start_select"){
     //     checkBoardClick("select_start_node");
@@ -228,12 +229,16 @@ void UIelements::renderAll(){
         checkBoardClick();
         drawObstacleMenu();
         checkObstacleMenuButtonClick();
+        
     }
     else if (UIstate == "erase_obstacles"){
         checkBoardClick();
         drawObstacleMenu();
         checkObstacleMenuButtonClick();
+        
     }
+    SDL_RenderPresent(renderer);
+    
     // cout << UIstate << endl;
 }
 
@@ -353,9 +358,11 @@ void UIelements::checkObstacleMenuButtonClick(){
         } 
         else if (clickedButton->buttonType == "stop_set_obstacles"){
             UIstate = "render_board_obstacle_menu";
+            cout << UIstate << endl;
         } 
         else if (clickedButton->buttonType == "erase_obstacles"){
             UIstate = "erase_obstacles";
+            cout << UIstate << endl;
         } 
         else if (clickedButton->buttonType == "Algo_1"){
 
@@ -385,17 +392,69 @@ void UIelements::checkObstacleMenuButtonClick(){
 void UIelements::drawMainMenu(){
     for (auto &curButton : mainButtonList){
         SDL_Rect curRect = {curButton.x1, curButton.y1, curButton.x2 - curButton.x1, curButton.y2 - curButton.y2};
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderDrawRect(renderer, &curRect);
+
+        int textWidth = 10;
+        int textHeight = 20;
+
+        int textX = curButton.x1 + 10;
+        int textY = curButton.y1 + (curButton.y2 - curButton.y1 - textHeight) / 2;
+
+        SDL_Color textColor = {255, 255, 255, 255};
+
+        SDL_Surface* textSurface = TTF_RenderText_Solid(font, curButton.buttonName.c_str(), textColor);
+
+        // TTF_SizeText(font, curButton.buttonName.c_str(), &textWidth, &textHeight);
+        // std::cout << "Text dimensions: " << textWidth << " x " << textHeight << std::endl;
+
+        if (!textSurface) {
+            std::cerr << "Surface creation failed: " << SDL_GetError() << std::endl;
+        }
+
+        SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+
+        if (!textTexture) {
+            std::cerr << "Texture creation failed: " << SDL_GetError() << std::endl;
+        }
+
+        SDL_Rect textRect = {textX, textY, textSurface->w, textSurface->h};
+        SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
+
     }
-    SDL_RenderPresent(renderer);
 }
 
 void UIelements::drawObstacleMenu(){
     for (auto &curButton : obstacleButtonList){
         SDL_Rect curRect = {curButton.x1, curButton.y1, curButton.x2 - curButton.x1, curButton.y2 - curButton.y2};
-        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderDrawRect(renderer, &curRect);
+
+        int textWidth = 10;
+        int textHeight = 20;
+
+        int textX = curButton.x1 + 10;
+        int textY = curButton.y1 + (curButton.y2 - curButton.y1 - textHeight) / 2;
+
+        SDL_Color textColor = {255, 255, 255, 255};
+
+        SDL_Surface* textSurface = TTF_RenderText_Solid(font, curButton.buttonName.c_str(), textColor);
+
+        // TTF_SizeText(font, curButton.buttonName.c_str(), &textWidth, &textHeight);
+        // std::cout << "Text dimensions: " << textWidth << " x " << textHeight << std::endl;
+
+        if (!textSurface) {
+            std::cerr << "Surface creation failed: " << SDL_GetError() << std::endl;
+        }
+
+        SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+
+        if (!textTexture) {
+            std::cerr << "Texture creation failed: " << SDL_GetError() << std::endl;
+        }
+
+        SDL_Rect textRect = {textX, textY, textSurface->w, textSurface->h};
+        SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
+
     }
-    SDL_RenderPresent(renderer);
 }
