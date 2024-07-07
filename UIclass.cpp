@@ -203,43 +203,29 @@ void UIelements::renderAll(){
     // bug with this 
     SDL_SetRenderDrawColor(renderer, 0,0,0, 255);
     drawBoard();
-    // if (UIstate == "start_select"){
-    //     checkBoardClick("select_start_node");
-    //     checkExitClick();
-    // }
-    // if set start is clicked
-    // cout << UIstate << endl;
+
     if (UIstate == "set_start_node"){
-        checkBoardClick();
         drawMainMenu();
     }
     else if (UIstate == "set_end_node"){
-        checkBoardClick();
         drawMainMenu();
     }
     else if (UIstate == "render_board_main_menu"){
-        checkMainMenuButtonClick();
         drawMainMenu();
     }
     else if (UIstate == "render_board_obstacle_menu"){
-        checkObstacleMenuButtonClick();
         drawObstacleMenu();
     }
     else if (UIstate == "start_set_obstacles"){
-        checkBoardClick();
         drawObstacleMenu();
-        checkObstacleMenuButtonClick();
         
     }
     else if (UIstate == "erase_obstacles"){
-        checkBoardClick();
         drawObstacleMenu();
-        checkObstacleMenuButtonClick();
         
     }
     SDL_RenderPresent(renderer);
-    
-    // cout << UIstate << endl;
+
 }
 
 node * UIelements::clickedNode(int x, int y){
@@ -260,7 +246,16 @@ string UIelements::getUIstate(){
 }
 
 void UIelements::checkExitClick(){
-
+    SDL_Event event;
+    if (SDL_PollEvent(&event)){
+        if (SDL_QUIT == event.type){
+            SDL_DestroyWindow(window);
+            SDL_DestroyRenderer(renderer);
+            SDL_Quit();
+            exit(0);
+        }
+    }
+    return;
 }
 
 void UIelements::checkMainMenuButtonClick(){
